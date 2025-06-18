@@ -1,6 +1,7 @@
 import { isAxiosError } from "axios"
 import { toast } from "sonner"
-import { httpApi } from "./http.server.lib"
+import { axiosInstance } from "./http.server.lib"
+import { isBrowser } from "./utils"
 
 /**
  * ---------------------------------------------------
@@ -12,7 +13,7 @@ import { httpApi } from "./http.server.lib"
  */
 
 interface HttpAsyncParams {
-  method: "get" | "post" | "put" | "delete" | "patch"
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
   url: string
   payload?: any
   params?: Record<string, any>
@@ -25,13 +26,13 @@ export async function httpClient<T = any>({
   params,
 }: HttpAsyncParams): Promise<T | null> {
   try {
-    const response = await httpApi.request<T>({
-      method: method,
+    const response = await axiosInstance.request<T>({
+      method: method?.toLowerCase(),
       url: url,
       data: payload,
       params: params,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+        Authorization: `Bearer ${isBrowser ? localStorage.getItem("auth-token") : null}`,
       },
     })
 
@@ -40,16 +41,29 @@ export async function httpClient<T = any>({
     return result
   } catch (error) {
     if (isAxiosError(error)) {
-      toast.error(error?.response?.data?.message)
+      if (isBrowser) {
+        toast.error(error?.response?.data?.message)
+        return null
+      }
+      console.error(error?.response?.data?.message)
       return null
     }
 
     if (error instanceof Error) {
-      toast.error(error?.message)
+      if (isBrowser) {
+        toast.error(error?.message)
+        return null
+      }
+      console.error(error?.message)
       return null
     }
 
-    toast.error("Unknown error")
+    if (isBrowser) {
+      toast.error("Unknown error")
+      return null
+    }
+
+    console.error("Unknown error")
     return null
   }
 }

@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query"
 
 export const useProducts = () => {
   const { data, isLoading, refetch } = useQuery({
+    enabled: true,
     queryKey: ["products"],
     queryFn: () => {},
   })
