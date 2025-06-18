@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import { productsServices } from "#/services/products.services"
 
 /**
  * ------------------------------------------------
@@ -10,7 +11,7 @@ export const useProducts = () => {
   const { data, isLoading, refetch } = useQuery({
     enabled: true,
     queryKey: ["products"],
-    queryFn: () => {},
+    queryFn: () => productsServices.queryProducts("1", "30"),
   })
 
   return {
