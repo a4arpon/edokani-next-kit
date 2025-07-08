@@ -3,10 +3,11 @@ export type SessionContextType = {
 }
 
 export type CartItem = {
-  productID: string
-  productImage: string
   productName: string
+  productID: string
+  variationID: string
   productSKU: string
-  price: number
-  quantity: number
+  productSlug: string
+  productImage: string
+  quantityAdded: number
 }
