@@ -52,7 +52,12 @@ const ProductPage = async ({ params }: { params: Promise<Params> }) => {
           <p className="text-lg font-semibold">
             Stocks Available - {product?.nowAvailable}
           </p>
-          <ProductVariations productID={product?.id} />
+          <ProductVariations
+            productID={product?.id}
+            productImage={product?.thumbnail}
+            productName={product?.name}
+            productSlug={productSlug}
+          />
           <hr />
           <details>
             <summary>{product?.subTitle}</summary>

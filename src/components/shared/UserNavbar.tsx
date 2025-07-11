@@ -1,18 +1,14 @@
-"use client"
-
-import { Menu, ShoppingCartIcon } from "lucide-react"
+import { MenuIcon, ShoppingCartIcon } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { AppConstants } from "#/consts/app.const"
 import { useSession } from "#/hooks/useSession"
 import { Button } from "../ui/button"
 
-export const Navbar = () => {
+export const UserNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isDesktop, setIsDesktop] = useState(false)
   const { cart } = useSession()
-  const router = useRouter()
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +39,7 @@ export const Navbar = () => {
             <Link href="/">Contact</Link>
           </li>
           {cart?.length > 0 && (
-            <Button variant="secondary" onClick={() => router.push("/u/cart")}>
+            <Button variant="secondary">
               <ShoppingCartIcon />
               <span>Cart</span>
             </Button>
@@ -59,7 +55,7 @@ export const Navbar = () => {
           size="icon"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          <Menu className="h-6 w-6" />
+          <MenuIcon className="h-6 w-6" />
         </Button>
       </nav>
 
@@ -74,7 +70,7 @@ export const Navbar = () => {
             Home
           </Link>
           <Link
-            href="/about"
+            href="/"
             className="block py-2"
             onClick={() => setIsMobileMenuOpen(false)}
           >
@@ -88,7 +84,7 @@ export const Navbar = () => {
             Contact
           </Link>
           {cart?.length > 0 && (
-            <Button onClick={() => router.push("u/cart")}>
+            <Button>
               <ShoppingCartIcon />
               <span>Cart</span>
             </Button>

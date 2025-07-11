@@ -6,8 +6,19 @@ import { useEffect, useState } from "react"
 import { Button } from "#/components/ui/button"
 import { AppConstants } from "#/consts/app.const"
 import { useProductVariants } from "#/hooks/useProducts"
+import { useSession } from "#/hooks/useSession"
 
-export const ProductVariations = ({ productID }: { productID: string }) => {
+export const ProductVariations = ({
+  productID,
+  productName,
+  productImage,
+  productSlug,
+}: {
+  productID: string
+  productName: string
+  productImage: string
+  productSlug: string
+}) => {
   const [selectedVariant, setSelectedVariant] = useState<{
     variationID: string
     productID: string
@@ -16,6 +27,7 @@ export const ProductVariations = ({ productID }: { productID: string }) => {
   } | null>(null)
   const { isProductVariantsLoading, productVariants } =
     useProductVariants(productID)
+  const { pushItem } = useSession()
 
   useEffect(() => {
     if (!isProductVariantsLoading) {
@@ -33,6 +45,18 @@ export const ProductVariations = ({ productID }: { productID: string }) => {
       setSelectedVariant(null)
     }
   }, [isProductVariantsLoading, productVariants, productID])
+
+  const pushItemToCart = () => {
+    pushItem({
+      productName: productName,
+      productID: productID,
+      variationID: selectedVariant?.variationID ?? "N/A",
+      productSKU: selectedVariant?.productSKU ?? "N/A",
+      productSlug: productSlug,
+      productImage: productImage,
+      quantityAdded: 1,
+    })
+  }
 
   return (
     <div className="space-y-3.5">
@@ -86,7 +110,9 @@ export const ProductVariations = ({ productID }: { productID: string }) => {
           <Button className="w-full" variant="secondary">
             Add To Wishlist
           </Button>
-          <Button className="w-full">Add To Cart</Button>
+          <Button className="w-full" onClick={pushItemToCart}>
+            Add To Cart
+          </Button>
         </div>
       )}
     </div>
