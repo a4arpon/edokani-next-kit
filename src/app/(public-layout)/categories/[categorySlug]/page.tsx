@@ -1,11 +1,12 @@
 import { SubCategoryCard } from "#/components/pages/categories-page/SubCategoryCard"
 import { categoriesServices } from "#/services/categories.services"
 
-type Params = { categorySlug: string }
+type Params = Promise<{ categorySlug: string }>
 
 const CategorySlug = async ({ params }: { params: Params }) => {
+  const { categorySlug } = await params
   const [subCategories] = await Promise.all([
-    categoriesServices.querySubCategoriesByCategorySlug(params?.categorySlug),
+    categoriesServices.querySubCategoriesByCategorySlug(categorySlug),
   ])
 
   return (

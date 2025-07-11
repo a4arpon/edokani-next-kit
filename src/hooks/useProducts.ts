@@ -20,3 +20,17 @@ export const useProducts = () => {
     refetchProducts: refetch,
   }
 }
+
+export const useProductVariants = (productID: string) => {
+  const { data, isLoading, refetch } = useQuery({
+    enabled: true,
+    queryKey: ["products", productID, "variants"],
+    queryFn: () => productsServices.getProductVariants(productID),
+  })
+
+  return {
+    productVariants: data,
+    isProductVariantsLoading: isLoading,
+    refetchProductVariants: refetch,
+  }
+}

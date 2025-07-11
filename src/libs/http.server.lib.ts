@@ -7,5 +7,5 @@
 import axios from "axios"
 
 export const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_ENV_API_SERVER,
+  baseURL: process.env.NEXT_PUBLIC_API_SERVER,
 })

@@ -25,7 +25,10 @@ export type ProductType = {
   readonly name: string
   readonly tags: readonly string[]
   readonly subTitle: string
+  readonly summary: string
+  readonly description: string
   readonly thumbnail: string
+  readonly images: string[]
   readonly rating: number
   readonly price: number
   readonly offerPrice: number
@@ -33,10 +36,30 @@ export type ProductType = {
   readonly nowAvailable: number
   readonly createdAt: string
   readonly updatedAt: string
+  readonly extra: {
+    isOnStock: boolean
+    isOnSale: boolean
+    upcomingStock: boolean
+  }
 }
 
 type BrandSummary = {
   readonly id: string
   readonly name: string
   readonly slug: string
+}
+
+export type ProductVariant = {
+  readonly id: string
+  readonly sku: string
+  readonly product: string
+  readonly price: number
+  readonly stock: number
+  readonly image: string
+  readonly variant: {
+    key: string
+    val: string
+  }[]
+  readonly createdAt: string
+  readonly updatedAt: string
 }

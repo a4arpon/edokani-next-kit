@@ -1,5 +1,5 @@
 import { httpClient } from "#/libs/http.client.lib"
-import type { ProductType } from "#/types/catalogs.types"
+import type { ProductType, ProductVariant } from "#/types/catalogs.types"
 
 class ProductsServices {
   /**
@@ -24,6 +24,29 @@ class ProductsServices {
         limit: limit,
         category: params?.category,
       },
+    })
+
+    return response?.data
+  }
+
+  public async getProduct(productSlug: string, includeRecommended = "true") {
+    const response = await httpClient<ProductType>({
+      method: "GET",
+      url: `catalogs/products/${productSlug}?includeRecommended=${includeRecommended}`,
+    })
+
+    return response?.data
+  }
+
+  /**
+   * Fetches variants for a specific product by its ID.
+   * @param productID - The ID of the product to fetch variants for
+   * @returns Promise containing the product variants data or undefined
+   */
+  public async getProductVariants(productID: string) {
+    const response = await httpClient<ProductVariant[]>({
+      method: "GET",
+      url: `catalogs/products/${productID}/variants`,
     })
 
     return response?.data

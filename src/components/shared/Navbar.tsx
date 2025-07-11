@@ -3,6 +3,7 @@
 import { Menu } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { AppConstants } from "#/consts/app.const"
 import { Button } from "../ui/button"
 
 export const Navbar = () => {
@@ -26,7 +27,7 @@ export const Navbar = () => {
           isDesktop ? "sticky top-0 z-50 container mx-auto py-6" : ""
         }`}
       >
-        <div className="text-2xl font-bold">Henna Mart LTD.</div>
+        <div className="text-2xl font-bold">{AppConstants.SHORT_APP_NAME}</div>
         <ul className="flex space-x-6">
           <li>
             <Link href="/">Home</Link>
