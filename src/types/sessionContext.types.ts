@@ -1,5 +1,6 @@
 export type SessionContextType = {
   cart: CartItem[]
+  pushItem: (item: CartItem) => void
 }
 
 export type CartItem = {
