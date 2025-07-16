@@ -3,6 +3,16 @@ import type { CartItem, SessionContextType } from "#/types/sessionContext.types"
 
 export const SessionContext = createContext<SessionContextType | null>(null)
 
+/**
+ * Provides session context for the application, including cart functionality.
+ *
+ * @param children - React nodes to be wrapped by the session context provider
+ * @returns A SessionContext provider with cart state and pushItem method
+ *
+ * @remarks
+ * The provider maintains cart state and exposes methods to manipulate it.
+ * pushItem adds a new item to the cart while preserving existing items.
+ */
 export const SessionContextProvider = ({
   children,
 }: {

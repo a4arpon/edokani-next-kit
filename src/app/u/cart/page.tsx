@@ -1,7 +1,8 @@
 "use client"
 
-import { TrashIcon } from "lucide-react"
+import { ArrowRightIcon, TrashIcon } from "lucide-react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Button } from "#/components/ui/button"
 import {
   Table,
@@ -15,6 +16,7 @@ import { useSession } from "#/hooks/useSession"
 
 const CartPage = () => {
   const { cart } = useSession()
+  const router = useRouter()
 
   return (
     <>
@@ -25,9 +27,9 @@ const CartPage = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Product</TableHead>
               <TableHead></TableHead>
-              <TableHead>Variant</TableHead>
+              <TableHead>Product</TableHead>
+              <TableHead>Quantity</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -43,8 +45,8 @@ const CartPage = () => {
                     alt={item?.productName}
                   />
                 </TableCell>
-                <TableCell>{item?.productName}</TableCell>
-                <TableCell>Paid</TableCell>
+                <TableCell>{item?.productName?.substring(0, 60)}...</TableCell>
+                <TableCell>{item?.quantityAdded}</TableCell>
                 <TableCell>
                   <Button variant="destructive">
                     <TrashIcon />
@@ -54,6 +56,12 @@ const CartPage = () => {
             ))}
           </TableBody>
         </Table>
+      </div>
+      <div className="flex justify-end">
+        <Button onClick={() => router.push("/u/checkout")}>
+          <ArrowRightIcon />
+          <span>Checkout Now</span>
+        </Button>
       </div>
     </>
   )
