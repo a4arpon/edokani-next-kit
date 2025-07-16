@@ -7,7 +7,11 @@ const CategoriesPage = async () => {
   return (
     <div className="grid grid-cols-2 gap-3.5 lg:grid-cols-4">
       {categories?.map((category) => (
-        <CategoryCard key={category.id} category={category} defaultHeight="auto"/>
+        <CategoryCard
+          key={category.id}
+          category={category}
+          defaultHeight="auto"
+        />
       ))}
     </div>
   )

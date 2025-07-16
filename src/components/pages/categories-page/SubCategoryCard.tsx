@@ -24,7 +24,7 @@ export const SubCategoryCard = ({
       <CardContent className="p-0 px-3">
         <h3 className="text-lg flex flex-row flex-wrap gap-3.5 justify-between items-center">
           <span>{subCategory?.name}</span>
-          <ArrowUpRightIcon className="hidden lg:inline"/>
+          <ArrowUpRightIcon className="hidden lg:inline" />
         </h3>
       </CardContent>
     </Card>

@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       {
         hostname: "rosybrown-eel-620472.hostingersite.com",
         protocol: "https",
-      }
+      },
     ],
   },
 }

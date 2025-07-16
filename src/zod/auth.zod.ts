@@ -2,7 +2,7 @@ import { z } from "zod"
 
 /**
  * Zod validation schemas for authentication-related operations
- * 
+ *
  * @description Provides validation schemas for user registration and login
  * - `register` schema validates registration input with name, email, and password
  * - `login` schema validates login credentials with email and password
