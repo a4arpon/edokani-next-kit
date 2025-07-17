@@ -22,7 +22,15 @@ export const SessionContextProvider = ({
 
   const pushItem = (item: CartItem) => {
     const cartItems = [...cart]
-    cartItems.push(item)
+    const existingItemIndex = cartItems.findIndex(
+      (ci) => ci.variationID === item.variationID
+    )
+
+    if (existingItemIndex !== -1) {
+      cartItems[existingItemIndex].quantityAdded += 1
+    } else {
+      cartItems.push(item)
+    }
 
     setCart(cartItems)
   }
