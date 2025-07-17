@@ -1,6 +1,7 @@
 export type SessionContextType = {
   cart: CartItem[]
   pushItem: (item: CartItem) => void
+  clearCartItemsAll: () => void
 }
 
 export type CartItem = {

@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   title: AppConstants.APP_NAME,
   description: AppConstants.APP_DESCRIPTION,
   openGraph: {
+    images: [
+      {
+        url: `${AppConstants.APP_DOMAIN}/assets/images/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: AppConstants.APP_NAME,
+      },
+    ],
     type: "website",
     title: AppConstants.APP_NAME,
     description: AppConstants.APP_DESCRIPTION,
@@ -28,6 +36,12 @@ export const metadata: Metadata = {
   },
 }
 
+/**
+ * RootLayout component serves as the base layout for the application.
+ * It wraps the children with necessary providers and sets up the basic HTML structure.
+ * @param {React.ReactNode} children - The child components to be rendered within the layout.
+ * @returns {JSX.Element} The root layout structure with providers and global styles applied.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

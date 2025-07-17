@@ -18,24 +18,33 @@ import {
   TableRow,
 } from "#/components/ui/table"
 import { useSession } from "#/hooks/useSession"
+import { guestOrderServices } from "#/services/guest-order.services"
 import type { createGuestOrderValidation } from "#/zod/order.zod"
 
 const CheckoutPage = () => {
-  const { cart } = useSession()
+  const { cart, clearCartItemsAll } = useSession()
   const router = useRouter()
 
   const { register, handleSubmit } =
     useForm<z.infer<typeof createGuestOrderValidation>>()
 
-  const handleFormSubmit = handleSubmit((data) => {
+  const handleFormSubmit = handleSubmit(async (data) => {
     const payload: z.infer<typeof createGuestOrderValidation> = {
       ...data,
+      orderType: "online_order",
       purchasedItems: cart?.map((item) => ({
         isOnOffer: false,
         itemID: item?.productID,
         variantID: item?.variationID,
         quantity: item?.quantityAdded,
       })),
+    }
+
+    const resp = await guestOrderServices.createGuestOrder(payload)
+
+    if (resp) {
+      clearCartItemsAll()
+      router.replace("/u/checkout/success")
     }
   })
 

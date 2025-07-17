@@ -35,9 +35,14 @@ export const SessionContextProvider = ({
     setCart(cartItems)
   }
 
+  const clearCartItemsAll = () => {
+    setCart([])
+  }
+
   const contextValue: SessionContextType = {
     cart: cart,
     pushItem: pushItem,
+    clearCartItemsAll: clearCartItemsAll,
   }
 
   return (
